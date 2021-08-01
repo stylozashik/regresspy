@@ -2,7 +2,6 @@ import numpy as np
 from numpy import ndarray
 from math import sqrt
 
-
 def mae(pred: ndarray, label: ndarray) -> ndarray:
     return np.sum(np.abs(pred - label)) / np.shape(pred)
 
