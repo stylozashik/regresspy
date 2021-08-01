@@ -1,0 +1,33 @@
+from numpy.lib.npyio import load
+import numpy as np
+import math
+from sklearn.linear_model import SGDRegressor
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+from regresspy import Regression
+from regresspy import rmse
+
+
+
+iris = load_iris()
+# We will use sepal length to predict sepal width
+X = iris.data[:, 0].reshape(-1, 1)
+Y = iris.data[:, 1].reshape(-1, 1)
+
+X_train,X_test,y_train,y_test = train_test_split(X,Y,test_size=0.2,stratify=0)
+
+#TODO Perform a linear regression using sklearn and calculate training rmse.
+# Use the SGDRegressor and only select set learning rate and epochs.
+model = SGDRegressor(learning_rate=0.001, epochs=100)
+model.fit(X_train,y_train)
+y_pred = model.predict(X_test,y_test)
+
+mse = mean_squared_error(y_test , y_pred)
+rmse = math. sqrt(mse)
+print(rmse)
+
+
+
+#TODO Perform a linear regression using your code and calculate training rmse.
+model.rmse
