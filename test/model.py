@@ -5,8 +5,8 @@ from sklearn.linear_model import SGDRegressor
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
-from regresspy import Regression
-from regresspy import rmse
+from regresspy.regression import Regression
+from regresspy.loss import rmse
 
 
 
@@ -30,4 +30,9 @@ print(rmse)
 
 
 #TODO Perform a linear regression using your code and calculate training rmse.
-model.rmse
+my_model = Regression(learning_rate=0.001 , epochs=100)
+my_model.fit(X_train , y_train)
+
+my_model_y_pred = my_model.predict(X_test , y_test)
+my_model_rmse = rmse(y_test , my_model_y_pred)
+print(my_model_rmse)
