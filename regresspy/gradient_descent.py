@@ -1,5 +1,4 @@
 from typing import Dict, Tuple
-
 import numpy as np
 from numpy import ndarray
 
