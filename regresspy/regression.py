@@ -37,7 +37,7 @@ class Regression(object):
         Returns
             (ndarray): predictions of shape (observations x 1)
         """
-        predictions =  self._weights['W']*X + self._weights['B']
+        predictions =  X @ self._weights['W']+ self._weights['B']
         return predictions
 
     def score(self, X: ndarray, Y: ndarray, metric='rmse') -> float:
@@ -57,7 +57,7 @@ class Regression(object):
             'rmse': rmse
         }
 
-        predictions =  self._weights['W']*X + self._weights['B']
+        predictions =  self._weights['W']@X + self._weights['B']
         if metric == 'mae':
             score = mae(Y , predictions)
         elif metric == 'sse':
@@ -74,8 +74,8 @@ class Regression(object):
         of the bias will be (1,1).
         """
         self._weights = {
-            'W': np.random(X.shape[1]),
-            'B': np.random(1, 1)
+            'W': np.random.rand(shape[1],1),
+            'B': np.random.rand(1, 1)
         }
 
     def _train(self, X: ndarray, Y: ndarray) -> None:
@@ -83,8 +83,9 @@ class Regression(object):
         """
         for i in range(self._epochs):
             print('Epoch: ', i + 1)
-            loss, info =  forward(X , Y , self._weights['W'])
+            loss, info =  forward(X , Y , self._weights)
             print('Loss: ', loss)
-            grads =  backward(info , self._weights['W'])
-            self._weights['W'] = self._weights['W'] -  loss
-            self._weights['B'] = self._weights['B'] -  loss
+            grads =  backward(info , self._weights)
+            self._weights['W'] = self._weights['W'] -  grads['W']*self._lr
+            self._weights['B'] = self._weights['B'] -  grads['B']*self._lr
+            print(grads['W'].shape)
