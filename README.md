@@ -1,5 +1,6 @@
 # regresspy
 A python library to implement regression model using Gradient Descent from scratch.
+
 How gradient descent works : Gradient descent is an iterative optimization algorithm for finding the local minimum of a function. To find the local minimum of a function using gradient descent, we must take steps proportional to the negative of the gradient (move away from the gradient) of the function at the current point.
 
 Step 1 : Error function declaration
