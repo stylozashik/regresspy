@@ -1,4 +1,4 @@
-from regresspy.loss import mae,sse
+from regresspy import mae,mse,sse,rmse
 import numpy as np
 
 
