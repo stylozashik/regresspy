@@ -34,8 +34,6 @@ regress_py_package/
  |-- |-- gradient_descent.py
  |-- |-- loss.py
  |-- |-- regression.py
- |-- test/
- |-- |   __init__.py
  |-- |   model.py
  |-- |   test.py
  |-- README.md
