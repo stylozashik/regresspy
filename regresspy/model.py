@@ -1,38 +1,23 @@
-from numpy.lib.npyio import load
-import numpy as np
-import math
 from sklearn.linear_model import SGDRegressor
 from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error
 from regresspy.regression import Regression
 from regresspy.loss import rmse
-
-
 
 iris = load_iris()
 # We will use sepal length to predict sepal width
 X = iris.data[:, 0].reshape(-1, 1)
 Y = iris.data[:, 1].reshape(-1, 1)
 
-X_train,X_test,y_train,y_test = train_test_split(X,Y,test_size=0.2,stratify=0)
 
-#TODO Perform a linear regression using sklearn and calculate training rmse.
-# Use the SGDRegressor and only select set learning rate and epochs.
-model = SGDRegressor(learning_rate=0.001, epochs=100)
-model.fit(X_train,y_train)
-y_pred = model.predict(X_test,y_test)
-
-mse = mean_squared_error(y_test , y_pred)
-rmse = math. sqrt(mse)
-print(rmse)
+stochastic_gradient_descent = SGDRegressor(max_iter= 100, learning_rate= 'constant', eta0= 0.001)
+stochastic_gradient_descent.fit(X, Y.reshape(-1))
+sto_chas_grad_prediction = stochastic_gradient_descent.predict(X)
+sto_chas_grad_rmse = rmse(sto_chas_grad_prediction, Y)
+print('SGD Regressor RMSE value:', str(sto_chas_grad_rmse))
 
 
-
-#TODO Perform a linear regression using your code and calculate training rmse.
-my_model = Regression(learning_rate=0.001 , epochs=100)
-my_model.fit(X_train , y_train)
-
-my_model_y_pred = my_model.predict(X_test , y_test)
-my_model_rmse = rmse(y_test , my_model_y_pred)
-print(my_model_rmse)
+regression_value = Regression(epochs= 100, learning_rate= 0.0001)
+regression_value.fit(X, Y)
+reg_pred = regression_value.predict(X)
+regression_rmse = regression_value.score(reg_pred, Y)
+print('RMSE value of my model: ', str(regression_rmse))
